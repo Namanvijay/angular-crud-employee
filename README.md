@@ -2,7 +2,7 @@
 
 STEPS:
 
-1.Install angualar cli
+1.Install angular cli
 
 2.npm install in root directory of application
 
