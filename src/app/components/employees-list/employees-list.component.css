@@ -1,0 +1,16 @@
+/* .container{
+  width: 100%;
+} */
+table {
+  width:100%;
+}
+
+.mat-cell {
+    /* padding: 16dp 8px 32dp; */
+    padding: 8px 8px 8px 0;
+  }
+
+.mat-row{
+  height: auto;
+
+}

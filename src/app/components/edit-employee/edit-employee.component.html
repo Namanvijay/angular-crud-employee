@@ -1,0 +1,142 @@
+<!-- Title group  -->
+<div class="title-group">
+  <h1 class="mat-h1">Add Employee</h1>
+  <mat-divider fxFlex="1 0"></mat-divider>
+</div>
+
+<!-- Form -->
+<div class="inner-wrapper">
+  <form [formGroup]="employeeForm" (ngSubmit)="updateEmployeeForm()" #resetEmployeeForm="ngForm" novalidate>
+    <!-- Left block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Name -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Employee name" formControlName="employee_name">
+          <mat-error *ngIf="handleError('employee_name', 'required')">
+            You must provide a<strong> employee name</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Email -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Employee email" formControlName="employee_email">
+          <mat-error *ngIf="handleError('employee_email', 'required')">
+            You must provide a<strong> employee email</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- job titles -->
+        <mat-form-field>
+          <mat-label></mat-label>
+          <mat-select [(value)]="selected" formControlName="section">
+            <mat-option [value]="sectioinArray" *ngFor="let sectioinArray of SectioinArray">{{sectioinArray}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="handleError('section', 'required')">
+            Admin fill the job title of employee in form
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Employee code" formControlName="empcode">
+          <mat-error *ngIf="handleError('empcode', 'required')">
+            You must provide a<strong> employee code</strong>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card>
+
+    <!-- Right block -->
+    <mat-card>
+      <div class="controlers-wrapper">
+        <!-- Add skills -->
+        <mat-form-field class="multiple-items">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let subjectArray of subjectArray" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(subjectArray)">
+              {{subjectArray.name}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Add Skills" [matChipInputFor]="chipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+              (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <i class="material-icons tooltip-info" matTooltip="Enter the skills of employee  and press enter to add skills">
+            info
+          </i>
+        </mat-form-field>
+
+        <!-- Date of join -->
+        <mat-form-field>
+          <input matInput readonly [matDatepicker]="picker" placeholder="Date of join" formControlName="doj"
+            (dateChange)="formatDate($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="handleError('doj', 'required')">
+            Date of join is required
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Mobile no" formControlName="mobile">
+          <mat-error *ngIf="handleError('mobile', 'required')">
+            You must provide a<strong> mobile no</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <!-- evalauation type-->
+        <mat-form-field>
+          <mat-label>Evaluation type</mat-label>
+          <mat-select [(value)]="select" formControlName="dept">
+            <mat-option [value]="evaluationtype" *ngFor="let evaluationtype of Evaluationtype">{{evaluationtype}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="handleError('dept', 'required')">
+            Evaluation type is required
+          </mat-error>
+        </mat-form-field>
+     
+
+        <!-- Gender -->
+        <div class="misc-bottom-padding">
+          <mat-label>Gender:</mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="gender">
+            <mat-radio-button value="Male">Male</mat-radio-button>
+            <mat-radio-button value="Female">Female</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <div class="misc-bottom-padding">
+          <mat-label>Is this Person a superviser:</mat-label>
+          <mat-radio-group aria-label="Select an option" formControlName="sp">
+            <mat-radio-button value="Yes">Yes</mat-radio-button>
+            <mat-radio-button value="No">No</mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+    </mat-card>
+
+    <div class="title-group">
+      <h1 class="mat-h1">Rate employee</h1>
+      <mat-divider fxFlex="1 0"></mat-divider>
+    </div>
+    
+    <div *ngFor="let item of Rating;index as i">
+      <span>
+        <br> {{item.name}}:
+      </span>
+      <ngb-rating [(rate)]="item.rate"></ngb-rating>(<b>{{item.rate}}</b>)
+      
+      
+    </div>
+
+    <!-- Submit & Reset -->
+    <mat-card>
+      <div class="full-wrapper button-wrapper">
+        <div class="button-wrapper">
+          <button mat-flat-button color="warn">Update</button>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+</div>
