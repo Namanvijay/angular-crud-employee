@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const employeeRoute = express.Router();
+const shortid=require('shortid')
 
 // Employee model
 let Employee = require('../model/Employee');
